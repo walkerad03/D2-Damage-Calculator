@@ -1,7 +1,11 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, \
-    QHBoxLayout, QVBoxLayout, QDialog, QLineEdit, QLabel
+    QHBoxLayout, QVBoxLayout, QDialog, QLineEdit, QLabel, \
+    QMainWindow, QTabWidget
 from PyQt5.QtGui import QIcon
 import sys
+
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 from video_player import VideoPlayer
 from damage_type_button import DamageTypeButton
@@ -31,12 +35,34 @@ class PopupWindow(QDialog):
         self.setLayout(layout)
 
 
-class MainWindow(QWidget):
+class ChartWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowIcon(QIcon("icon.ico"))
-        self.setWindowTitle("Destiny DPS Calculator")
-        self.setGeometry(0, 0, 960, 540)
+        self.setWindowTitle("Matplotlib Example")
+        self.setGeometry(300, 200, 600, 400)
+
+        widget = QWidget(self)
+        layout = QVBoxLayout(widget)
+
+        fig = Figure()
+        canvas = FigureCanvas(fig)
+
+        layout.addWidget(canvas)
+
+        self.plot_chart(fig)
+
+    def plot_chart(self, fig):
+        ax = fig.add_subplot(111)
+        ax.plot([1, 2, 3, 4, 5], [1, 2, 3, 4, 5], 'b-o')
+
+        ax.set_xlabel('X-axis')
+        ax.set_ylabel('Y-axis')
+        ax.set_title('Sample Chart')
+
+
+class VideoWindow(QWidget):
+    def __init__(self):
+        super().__init__()
 
         self.video_player = VideoPlayer()
 
@@ -61,6 +87,25 @@ class MainWindow(QWidget):
             damage_value = int(popup.text2.text())
             damage_button = DamageTypeButton(damage_name, damage_value, self.video_player)
             self.sidebar.addWidget(damage_button)
+
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowIcon(QIcon("icon.ico"))
+        self.setWindowTitle("Destiny DPS Calculator")
+        self.setGeometry(0, 0, 960, 540)
+
+        self.tab_widget = QTabWidget(self)
+        self.setCentralWidget(self.tab_widget)
+
+        self.video_tab = VideoWindow()
+        self.chart_tab = ChartWindow()
+        self.stats_tab = QWidget()
+
+        self.tab_widget.addTab(self.video_tab, "Video Player")
+        self.tab_widget.addTab(self.chart_tab, "DPS Chart (NOT DONE)")
+        self.tab_widget.addTab(self.stats_tab, "Statistics (NOT DONE)")
 
 
 app = QApplication([])

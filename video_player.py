@@ -57,7 +57,7 @@ class VideoPlayer(QWidget):
         if filename != '':
             self.media_player.setMedia(QMediaContent(QUrl.fromLocalFile(filename)))
             self.play_button.setEnabled(True)
-            with open("damage_values.csv", "a") as file:
+            with open("damage_values.csv", "w") as file:
                 file.write("Frame Number, Damage Value\n")
 
     def play_video(self):

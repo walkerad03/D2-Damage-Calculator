@@ -28,7 +28,7 @@ class DamageTypeButton(QWidget):
 
     def log_damage_value(self):
         damage = self.damage_value
-        position = self.video_player.media_player.position() * 60 / 1000
+        position = int(self.video_player.media_player.position() * 60 / 1000)
 
         with open("damage_values.csv", "a") as file:
             file.write(f"{position}, {damage}\n")
