@@ -38,7 +38,7 @@ class MainWindow(QWidget):
         self.setWindowTitle("Destiny DPS Calculator")
         self.setGeometry(0, 0, 960, 540)
 
-        video_player = VideoPlayer()
+        self.video_player = VideoPlayer()
 
         self.add_weapon_type_btn = QPushButton("Add Damage Type")
         self.add_weapon_type_btn.clicked.connect(self.open_damage_value_popup)
@@ -46,9 +46,10 @@ class MainWindow(QWidget):
         self.sidebar = QVBoxLayout()
         self.sidebar.setContentsMargins(0, 0, 0, 0)
         self.sidebar.addWidget(self.add_weapon_type_btn)
+        self.sidebar.addStretch(1)
 
         main_layout = QHBoxLayout()
-        main_layout.addWidget(video_player)
+        main_layout.addWidget(self.video_player)
         main_layout.addLayout(self.sidebar)
 
         self.setLayout(main_layout)
@@ -58,7 +59,7 @@ class MainWindow(QWidget):
         if popup.exec_() == QDialog.Accepted:
             damage_name = popup.text1.text()
             damage_value = int(popup.text2.text())
-            damage_button = DamageTypeButton(damage_name, damage_value)
+            damage_button = DamageTypeButton(damage_name, damage_value, self.video_player)
             self.sidebar.addWidget(damage_button)
 
 
