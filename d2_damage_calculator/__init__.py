@@ -1,0 +1,1 @@
+from d2_damage_calculator.main import MainWindow

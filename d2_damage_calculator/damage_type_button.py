@@ -30,7 +30,7 @@ class DamageTypeButton(QWidget):
         damage = self.damage_value
         position = int(self.video_player.media_player.position() * 60 / 1000)
 
-        with open("damage_values.csv", "a") as file:
+        with open(f"../data/{self.video_player.working_folder}/damage_values.csv", "a") as file:
             file.write(f"{position}, {damage}\n")
 
     def delete_widget(self):

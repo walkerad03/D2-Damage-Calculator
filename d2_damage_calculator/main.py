@@ -4,11 +4,9 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, \
 from PyQt5.QtGui import QIcon
 import sys
 
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.figure import Figure
-
 from video_player import VideoPlayer
 from damage_type_button import DamageTypeButton
+from chart_window import ChartWindow
 
 
 class PopupWindow(QDialog):
@@ -33,31 +31,6 @@ class PopupWindow(QDialog):
         layout.addWidget(self.ok_button)
 
         self.setLayout(layout)
-
-
-class ChartWindow(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("Matplotlib Example")
-        self.setGeometry(300, 200, 600, 400)
-
-        widget = QWidget(self)
-        layout = QVBoxLayout(widget)
-
-        fig = Figure()
-        canvas = FigureCanvas(fig)
-
-        layout.addWidget(canvas)
-
-        self.plot_chart(fig)
-
-    def plot_chart(self, fig):
-        ax = fig.add_subplot(111)
-        ax.plot([1, 2, 3, 4, 5], [1, 2, 3, 4, 5], 'b-o')
-
-        ax.set_xlabel('X-axis')
-        ax.set_ylabel('Y-axis')
-        ax.set_title('Sample Chart')
 
 
 class VideoWindow(QWidget):
@@ -92,7 +65,7 @@ class VideoWindow(QWidget):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowIcon(QIcon("icon.ico"))
+        self.setWindowIcon(QIcon("../icon.ico"))
         self.setWindowTitle("Destiny DPS Calculator")
         self.setGeometry(0, 0, 960, 540)
 
