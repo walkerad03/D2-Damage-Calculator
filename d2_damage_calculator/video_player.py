@@ -61,13 +61,12 @@ class VideoPlayer(QWidget):
         if filename != '':
             match = re.match(r".*/([^/]+)\.mp4$", filename)
             self.working_folder = match.group(1)
-            os.makedirs(f"../data/{self.working_folder}")
-            shutil.copy(filename, f"../data/{self.working_folder}/video.mp4")
+            os.makedirs(f"data/{self.working_folder}")
+            shutil.copy(filename, f"data/{self.working_folder}/video.mp4")
 
-
-            self.media_player.setMedia(QMediaContent(QUrl.fromLocalFile(f"../data/{self.working_folder}/video.mp4")))
+            self.media_player.setMedia(QMediaContent(QUrl.fromLocalFile(f"data/{self.working_folder}/video.mp4")))
             self.play_button.setEnabled(True)
-            with open(f"../data/{self.working_folder}/damage_values.csv", "w") as file:
+            with open(f"data/{self.working_folder}/damage_values.csv", "w") as file:
                 file.write("Frame Number, Damage Value\n")
 
     def play_video(self):

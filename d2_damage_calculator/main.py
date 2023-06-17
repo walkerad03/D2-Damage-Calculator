@@ -10,9 +10,9 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QHBoxLayout, \
 from PyQt5.QtGui import QIcon
 import sys
 
-from video_player import VideoPlayer
-from damage_type_button import DamageTypeButton
-from chart_window import ChartWindow
+from .video_player import VideoPlayer
+from .damage_type_button import DamageTypeButton
+from .chart_window import ChartWindow
 
 
 class PopupWindow(QDialog):
@@ -120,7 +120,7 @@ class MainWindow(QMainWindow):
     """
     def __init__(self):
         super().__init__()
-        self.setWindowIcon(QIcon("../icon.ico"))
+        self.setWindowIcon(QIcon("icon.ico"))
         self.setWindowTitle("Destiny DPS Calculator")
         self.setGeometry(0, 0, 960, 540)
 
